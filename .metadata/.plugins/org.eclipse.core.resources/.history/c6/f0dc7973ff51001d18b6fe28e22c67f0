@@ -1,0 +1,36 @@
+package controlador;
+
+import Fabrica.Fabrica;
+import entidade.EmprestimoEntidade;
+import entidade.Entidade;
+import persistencia.Persistencia;
+
+public class LivroControlador extends Controlador {
+	Fabrica fabrica = Fabrica.getFactory("Livro");
+	Persistencia persistencia;
+	@Override
+	public void insereArray(Entidade livro, int opcao) {
+		// TODO Auto-generated method stub
+		persistencia = fabrica.createPersistencia();
+		persistencia.inserir(livro);
+	}
+	
+	public void alterarEmprestimo(Entidade livroAntigo, Entidade livroNovo) {
+		// TODO Auto-generated method stub
+		persistencia = fabrica.createPersistencia();
+		persistencia.alterar(livroAntigo,livroNovo);
+		
+	}
+	
+	public void excluir(Entidade livro) {
+		// TODO Auto-generated method stub
+		persistencia = fabrica.createPersistencia();
+		persistencia.excluir(livro);
+	}
+	
+	public void visualizar() {
+		// TODO Auto-generated method stub
+		persistencia = fabrica.createPersistencia();
+		persistencia.visualizar();
+	}
+}

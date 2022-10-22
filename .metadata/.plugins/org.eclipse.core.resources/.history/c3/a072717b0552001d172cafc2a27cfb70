@@ -1,0 +1,74 @@
+package persistencia;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import Fabrica.Fabrica;
+import entidade.EmprestimoEntidade;
+import entidade.Entidade;
+import entidade.LivroEntidade;
+import visao.Visao;
+
+public class LivroPersistencia extends Persistencia{
+	static java.io.File diretorio = null;
+	static java.io.File arquivo;
+	private static FileWriter texto = null;
+	private static PrintWriter escrito = null;
+	private static List<Entidade> livros = new ArrayList<Entidade>();
+
+	//Declaração da classe como singleton
+	private static LivroPersistencia uniqueInstance;
+	
+	private LivroPersistencia() {
+	}
+	public static synchronized LivroPersistencia getInstance() {
+		if (uniqueInstance == null)
+			uniqueInstance = new LivroPersistencia();
+
+		return uniqueInstance;
+	}
+	//-------------------------------------------
+	@Override
+	public void inserir(Entidade livro) {
+		// TODO Auto-generated method stub
+		livro.setId(livros.size() + 1);
+		livros.add(livro);
+	}
+	@Override
+	public void alterar(Entidade livroAntigo, Entidade livroNovo) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getNomeLivro().equals(livroAntigo.getNomeLivro())){
+				LivroEntidade novoLivro = (LivroEntidade) l;
+				novoLivro.setNomeLivro(livroNovo.getNomeLivro());
+				return;
+			}
+		}
+		
+	}
+	@Override
+	public void excluir(Entidade livro) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getNomeLivro().equals(livro.getNomeLivro())) {
+				livros.remove(l);
+				break;
+			}
+		}
+	}
+	@Override
+	public void buscaPorId(Entidade entidade) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void buscaPorString(Entidade entidade) {
+		// TODO Auto-generated method stub
+		
+	}
+}
