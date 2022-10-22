@@ -14,6 +14,9 @@ public class EmprestimoVisao extends Visao{
 	public void menu(Fabrica fabrica) throws IOException {
 		// TODO Auto-generated method stub
 		int opcao = -1;
+		int opcao2 = -1;
+		int Id;
+		String Nome;
 		EmprestimoEntidade emprestimo;
 		Controlador controlador;
 		
@@ -38,7 +41,6 @@ public class EmprestimoVisao extends Visao{
 			opcao = Integer.parseInt(Console.readLine());
 			
 			 switch (opcao) {
-
 		        case 1:
 		        	emprestimo = (EmprestimoEntidade) fabrica.createEntidade();
 		        	System.out.println("Nome Livro: ");
@@ -92,20 +94,35 @@ public class EmprestimoVisao extends Visao{
 		        	controlador.excluir(emprestimo);
 		        	break;
 		        case 5:
-		        	emprestimo = (EmprestimoEntidade) fabrica.createEntidade();
-		        	System.out.println("Nome Livro: ");
-		        	nomeLivro = Console.readLine();
-		        	emprestimo.setNomeLivro(nomeLivro);
-		        	System.out.println("Matricula: ");
-		        	matriculaAluno = Console.readLine();
-		        	emprestimo.setMatriculaAluno(matriculaAluno);
-		        	
-		        	controlador = fabrica.createControlador();
-		        	controlador.visualizarBusca();
-		        	//Parei aqui
+		        	System.out.println("1 - Busca por Id");
+					System.out.println("2 - Busca por Nome");
+					System.out.println("0 - Retornar");
+					
+					opcao2 = Integer.parseInt(Console.readLine());
+					
+					switch(opcao2) {
+						case 1:
+							emprestimo = (EmprestimoEntidade) fabrica.createEntidade();
+				        	System.out.println("Id: ");
+				        	Id = Integer.parseInt(Console.readLine());
+				        	emprestimo.setId(Id);
+				        	controlador = fabrica.createControlador();
+				        	controlador.buscaPorId(Id);
+							break;
+						case 2:
+							emprestimo = (EmprestimoEntidade) fabrica.createEntidade();
+				        	System.out.println("Nome: ");
+				        	Nome = Console.readLine();
+				        	emprestimo.setNomeLivro(Nome);
+				        	controlador = fabrica.createControlador();
+				        	controlador.buscaPorString(Nome);
+							break;
+						default:
+							break;
+					}
 		        	break;
 		        default:
-		            System.out.println("Opcao Invalida!");
+		            break;
 		     }
 		}
 	}
@@ -122,20 +139,12 @@ public class EmprestimoVisao extends Visao{
 		
 	}
 
-	@Override
-	public void buscaPorId(Entidade emprestimo) {
+	public void viewBusca(Entidade emprestimo) {
 		// TODO Auto-generated method stub
-		System.out.println("ID: " + emprestimo.getId());
-		System.out.println("Nome Livro: " + emprestimo.getNomeLivro());
+		System.out.println("Id: " + emprestimo.getId());
+		System.out.println("Livro: " + emprestimo.getNomeLivro());
 		System.out.println("Matricula: " + emprestimo.getMatriculaAluno());
-	}
-
-	@Override
-	public void buscaPorString(Entidade emprestimo) {
-		// TODO Auto-generated method stub
-		System.out.println("ID: " + emprestimo.getId());
-		System.out.println("Nome Livro: " + emprestimo.getNomeLivro());
-		System.out.println("Matricula: " + emprestimo.getMatriculaAluno());
+		System.out.println("\n");
 	}
 
 }

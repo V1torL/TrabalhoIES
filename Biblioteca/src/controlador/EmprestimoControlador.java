@@ -34,21 +34,15 @@ public class EmprestimoControlador extends Controlador{
 		persistencia.visualizar();
 	}
 	@Override
-	public void buscaPorId() {
+	public void buscaPorId(int Id) {
 		// TODO Auto-generated method stub
 		persistencia = fabrica.createPersistencia();
-		persistencia.buscaPorId();
+		persistencia.buscaPorId(Id);
 	}
 	@Override
-	public void buscaPorString() {
+	public void buscaPorString(String Nome) {
 		// TODO Auto-generated method stub
 		persistencia = fabrica.createPersistencia();
-		persistencia.buscaPorString();
-	}
-	@Override
-	public void visualizarBusca() {
-		// TODO Auto-generated method stub
-		persistencia = fabrica.createPersistencia();
-		persistencia.visualizarBusca();
+		persistencia.buscaPorString(Nome);
 	}
 }

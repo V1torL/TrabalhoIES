@@ -82,30 +82,32 @@ public class EmprestimoPersistencia extends Persistencia{
 		
 	}
 	@Override
-	public void buscaPorId() {
+	public void buscaPorId(int Id) {
 		// TODO Auto-generated method stub
 		for(Entidade e: emprestimos) 
 		{
-			if(e.getId().equals(e.getId())) {
+			if(e.getId().equals(Id)) {
 				Visao visao;
 				Fabrica fabrica;
-				fabrica = Fabrica.getFactory("Livro");
+				fabrica = Fabrica.getFactory("Emprestimo");
 				visao = fabrica.createVisao();
-				visao.buscaPorId(e);
+				visao.viewBusca(e);
+				break;
 			}
 		}
 	}
 	@Override
-	public void buscaPorString() {
+	public void buscaPorString(String Nome) {
 		// TODO Auto-generated method stub
 		for(Entidade e: emprestimos) 
 		{
-			if(e.getNomeLivro().equals(e.getNomeLivro())) {
+			if(e.getNomeLivro().equals(Nome)) {
 				Visao visao;
 				Fabrica fabrica;
-				fabrica = Fabrica.getFactory("Livro");
+				fabrica = Fabrica.getFactory("Emprestimo");
 				visao = fabrica.createVisao();
-				visao.buscaPorString(e);
+				visao.viewBusca(e);
+				break;
 			}
 		}
 	}
@@ -117,10 +119,5 @@ public class EmprestimoPersistencia extends Persistencia{
 		fabrica = Fabrica.getFactory("Emprestimo");
 		visao = fabrica.createVisao();
 		visao.view(emprestimos);
-	}
-	@Override
-	public void visualizarBusca() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -14,9 +14,7 @@ public abstract class Controlador {
 
 	public abstract void visualizar();
 	
-	public abstract void buscaPorId();
+	public abstract void buscaPorId(int Id);
 	
-	public abstract void buscaPorString();
-
-	public abstract void visualizarBusca();
+	public abstract void buscaPorString(String nome);
 }

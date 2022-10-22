@@ -1,0 +1,115 @@
+package persistencia;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import Fabrica.Fabrica;
+import entidade.Entidade;
+import entidade.LivroEntidade;
+import visao.Visao;
+
+public class LivroPersistencia extends Persistencia{
+	static java.io.File diretorio = null;
+	static java.io.File arquivo;
+	private static FileWriter texto = null;
+	private static PrintWriter escrito = null;
+	private static List<Entidade> livros = new ArrayList<Entidade>();
+
+	//Declaração da classe como singleton
+	private static LivroPersistencia uniqueInstance;
+	
+	private LivroPersistencia() {
+	}
+	public static synchronized LivroPersistencia getInstance() {
+		if (uniqueInstance == null)
+			uniqueInstance = new LivroPersistencia();
+
+		return uniqueInstance;
+	}
+	//-------------------------------------------
+	@Override
+	public void inserir(Entidade livro) {
+		// TODO Auto-generated method stub
+		livro.setId(livros.size() + 1);
+		livros.add(livro);
+	}
+	@SuppressWarnings("unused")
+	private void escreverArquivo() throws IOException {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			texto = new FileWriter(arquivo, true);
+			escrito = new PrintWriter(texto);
+			escrito.println("\nLivro:");
+			escrito.println("\tId: " + l.getId() + " ");
+			escrito.println("\tNome do Livro: " + l.getNomeLivro() + " ");
+			escrito.flush();
+			escrito.close();
+		}
+	}
+	@Override
+	public void alterar(Entidade livroAntigo, Entidade livroNovo) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getNomeLivro().equals(livroAntigo.getNomeLivro())){
+				LivroEntidade novoLivro = (LivroEntidade) l;
+				novoLivro.setNomeLivro(livroNovo.getNomeLivro());
+				return;
+			}
+		}
+		
+	}
+	@Override
+	public void excluir(Entidade livro) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getNomeLivro().equals(livro.getNomeLivro())) {
+				livros.remove(l);
+				break;
+			}
+		}
+	}
+	@Override
+	public void buscaPorId(int Id) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getId().equals(Id)) {
+				Visao visao;
+				Fabrica fabrica;
+				fabrica = Fabrica.getFactory("Livro");
+				visao = fabrica.createVisao();
+				visao.viewBusca(l);
+			}
+		}
+	}
+	@Override
+	public void buscaPorString(int Nome) {
+		// TODO Auto-generated method stub
+		for(Entidade l: livros) 
+		{
+			if(l.getNomeLivro().equals(Nome)) {
+				Visao visao;
+				Fabrica fabrica;
+				fabrica = Fabrica.getFactory("Livro");
+				visao = fabrica.createVisao();
+				visao.viewBusca(l);
+			}
+		}
+	}
+	@Override
+	public void visualizar() {
+		// TODO Auto-generated method stub
+		Visao visao;
+		Fabrica fabrica;
+		fabrica = Fabrica.getFactory("Livro");
+		visao = fabrica.createVisao();
+		visao.view(livros);
+		
+	}
+}

@@ -42,7 +42,6 @@ public abstract class Visao {
         }
     }
 	public abstract void view(List<Entidade> Entidade);
-	public abstract void buscaPorId(Entidade entidade);
-	public abstract void buscaPorString(Entidade entidade);
+	public abstract void viewBusca(Entidade entidade);
 	
 }

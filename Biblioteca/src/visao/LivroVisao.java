@@ -5,14 +5,17 @@ import java.util.List;
 
 import Fabrica.Fabrica;
 import controlador.Controlador;
-import entidade.LivroEntidade;
 import entidade.Entidade;
+import entidade.LivroEntidade;
 
 public class LivroVisao extends Visao{	
 	@Override
 	public void menu(Fabrica fabricaEspecifica) throws IOException {
 		// TODO Auto-generated method stub       
 		int opcao = -1;
+		int opcao2 = -1;
+		int Id;
+		String Nome;
 		LivroEntidade livro;
 		Controlador controlador;
 		
@@ -78,13 +81,32 @@ public class LivroVisao extends Visao{
 		        	controlador.excluir(livro);
 		        	break;
 		        case 5:
-		        	livro = (LivroEntidade) fabricaEspecifica.createEntidade();
-		        	System.out.println("Nome Livro: ");
-		        	nomeLivro = Console.readLine();
-		        	livro.setNomeLivro(nomeLivro);
-		        	
-		        	controlador = fabricaEspecifica.createControlador();
-		        	controlador.visualizarBusca();
+		        	System.out.println("1 - Busca por Id");
+					System.out.println("2 - Busca por Nome");
+					System.out.println("0 - Retornar");
+					
+					opcao2 = Integer.parseInt(Console.readLine());
+					
+					switch(opcao2) {
+						case 1:
+							livro = (LivroEntidade) fabricaEspecifica.createEntidade();
+				        	System.out.println("Id: ");
+				        	Id = Integer.parseInt(Console.readLine());
+				        	livro.setId(Id);
+				        	controlador = fabricaEspecifica.createControlador();
+				        	controlador.buscaPorId(Id);
+							break;
+						case 2:
+							livro = (LivroEntidade) fabricaEspecifica.createEntidade();
+				        	System.out.println("Nome: ");
+				        	Nome = Console.readLine();
+				        	livro.setNomeLivro(Nome);
+				        	controlador = fabricaEspecifica.createControlador();
+				        	controlador.buscaPorString(Nome);
+							break;
+						default:
+							break;
+					}
 		        	break;
 		        default:
 		            System.out.println("Opcao Invalida!");
@@ -103,15 +125,7 @@ public class LivroVisao extends Visao{
 		}
 	}
 
-	@Override
-	public void buscaPorId(Entidade livro) {
-		// TODO Auto-generated method stub
-		System.out.println("ID: " + livro.getId());
-		System.out.println("Nome Livro: " + livro.getNomeLivro());
-	}
-
-	@Override
-	public void buscaPorString(Entidade livro) {
+	public void viewBusca(Entidade livro) {
 		// TODO Auto-generated method stub
 		System.out.println("ID: " + livro.getId());
 		System.out.println("Nome Livro: " + livro.getNomeLivro());

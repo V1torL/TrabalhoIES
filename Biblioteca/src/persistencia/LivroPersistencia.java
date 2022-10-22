@@ -75,30 +75,30 @@ public class LivroPersistencia extends Persistencia{
 		}
 	}
 	@Override
-	public void buscaPorId() {
+	public void buscaPorId(int Id) {
 		// TODO Auto-generated method stub
 		for(Entidade l: livros) 
 		{
-			if(l.getId().equals(l.getId())) {
+			if(l.getId().equals(Id)) {
 				Visao visao;
 				Fabrica fabrica;
 				fabrica = Fabrica.getFactory("Livro");
 				visao = fabrica.createVisao();
-				visao.buscaPorId(l);
+				visao.viewBusca(l);
 			}
 		}
 	}
 	@Override
-	public void buscaPorString() {
+	public void buscaPorString(String Nome) {
 		// TODO Auto-generated method stub
 		for(Entidade l: livros) 
 		{
-			if(l.getNomeLivro().equals(l.getNomeLivro())) {
+			if(l.getNomeLivro().equals(Nome)) {
 				Visao visao;
 				Fabrica fabrica;
 				fabrica = Fabrica.getFactory("Livro");
 				visao = fabrica.createVisao();
-				visao.buscaPorString(l);
+				visao.viewBusca(l);
 			}
 		}
 	}
@@ -110,11 +110,6 @@ public class LivroPersistencia extends Persistencia{
 		fabrica = Fabrica.getFactory("Livro");
 		visao = fabrica.createVisao();
 		visao.view(livros);
-		
-	}
-	@Override
-	public void visualizarBusca() {
-		// TODO Auto-generated method stub
 		
 	}
 }
